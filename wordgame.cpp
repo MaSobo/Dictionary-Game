@@ -24,7 +24,7 @@ std::vector<std::string> readDic()
 
 std::string randomLetterString(int howManyLeters)
 {   
-    std::string letters = "abcdefghijklmnopqrstuvwxyz";
+    std::string letters = "abcdefghijklmnopqrstuvwxyzaaaaaeeeeiiiiooo";
 
     std::mt19937 generator(std::time(nullptr));
 
@@ -51,6 +51,23 @@ bool checkIfWordInDic(std::string word)
     return false;
 }
 
+bool checkIfWordFromLetters(std::string word, std::string letters)
+{
+    int a;
+    for(int i=0; i<word.size(); ++i)
+    {
+        a=letters.find(word[i]);
+        if (a == std::string::npos)
+            return false;
+        else
+        {
+            continue;
+        }
+        
+    }
+    return true;
+}
+
 int main()
 {
     std::vector<std::string> Guesedwords;
@@ -72,32 +89,36 @@ int main()
         std::cin>>guess;
         std::cout<<std::endl;
     
-
-        if (checkIfWordInDic(guess))
+        if(checkIfWordFromLetters(guess, letters))
         {
-              if (std::find (Guesedwords.begin(), Guesedwords.end(), guess) != Guesedwords.end())
-              {
-                std::cout<<"You already have this word!";
-              }
-              else
-              {
-                Guesedwords.emplace_back(guess);
-                std::cout<<"You found "<<Guesedwords.size()<<" words!"; 
-                for(std::string n : Guesedwords)
-                std::cout<<n<<" "; 
-                std::cout<<std::endl;
-              }
-              
-  
-            
+            if (checkIfWordInDic(guess))
+            {
+                if (std::find (Guesedwords.begin(), Guesedwords.end(), guess) != Guesedwords.end())
+                {
+                    std::cout<<"You already have this word!";
+                }
+                else
+                {
+                    Guesedwords.emplace_back(guess);
+                    std::cout<<"You found "<<Guesedwords.size()<<" words! \n"; 
+                    for(std::string n : Guesedwords)
+                    std::cout<<n<<" "; 
+                    std::cout<<std::endl;
+                }
+                         
+            }
+            else
+            {
+                std::cout<<"wrong \n";
+            }
         }
         else
         {
-            std::cout<<"wrong \n";
+            std::cout<<"This word is made of letters different than the chosen ones. \n";
         }
         
      --HowManyTries;
-     std::cout<<"You have "<<HowManyTries<<" tries left";
+     std::cout<<"You have "<<HowManyTries<<" tries left \n";
 
     }
     
